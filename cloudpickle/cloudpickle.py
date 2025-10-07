@@ -1322,18 +1322,18 @@ class Pickler(pickle.Pickler):
     dispatch_table = ChainMap(_dispatch_table, copyreg.dispatch_table)
 
     def _stable_identifier_function_reduce(self, func):
-    code_path = self.config.get_code_object_identifier(func)
-    if not code_path:
-      return self._dynamic_function_reduce(func)
-    newargs = (code_path, )
-    state = _function_getstate(func)
-    return (
-        _make_function_from_identifier,
-        newargs,
-        state,
-        None,
-        None,
-        _function_setstate)
+        code_path = self.config.get_code_object_identifier(func)
+        if not code_path:
+            return self._dynamic_function_reduce(func)
+        newargs = (code_path, )
+        state = _function_getstate(func)
+        return (
+            _make_function_from_identifier,
+            newargs,
+            state,
+            None,
+            None,
+            _function_setstate)
 
     # function reducers are defined as instance methods of cloudpickle.Pickler
     # objects, as they rely on a cloudpickle.Pickler attribute (globals_ref)
